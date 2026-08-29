@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f3f4f6;
+  color: #111827;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+header {
+  height: 64px;
+  padding: 0 20px;
+  background: #111827;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.page,
+#authPage {
+  width: min(700px, 100%);
+  margin: auto;
+  padding: 20px;
+}
+
+.auth-card,
+.card,
+.balance-card {
+  background: white;
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 16px;
+
+  box-shadow:
+    0 8px 30px
+    rgba(0,0,0,.06);
+}
+
+.auth-card {
+  margin-top: 70px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 7px 0;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  font-size: 16px;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 18px;
+
+  background: #4f46e5;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+#authBtn,
+#createTask {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.link-button {
+  width: 100%;
+  margin-top: 15px;
+
+  background: transparent;
+  color: #4f46e5;
+}
+
+.danger {
+  background: #ef4444;
+}
+
+.balance-card {
+  color: white;
+  text-align: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #4f46e5,
+      #7c3aed
+    );
+}
+
+.points {
+  font-size: 52px;
+  font-weight: 900;
+}
+
+.task {
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.reward {
+  color: #16a34a;
+  font-weight: 800;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.hidden {
+  display: none !important;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 10px 5px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
