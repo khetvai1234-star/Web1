@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PointWeb</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h2 {
+      font-size: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.06);
+    }
+
+    .points {
+      text-align: center;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+    }
+
+    .points h1 {
+      font-size: 42px;
+      margin: 10px 0;
+    }
+
+    .task {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .task-info {
+      flex: 1;
+    }
+
+    .task-info h3 {
+      margin-bottom: 5px;
+    }
+
+    .task-info p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    button,
+    .btn {
+      border: none;
+      background: #6366f1;
+      color: white;
+      padding: 11px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover,
+    .btn:hover {
+      opacity: .85;
+    }
+
+    .logout {
+      background: #ef4444;
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin: 8px 0;
+      outline: none;
+    }
+
+    .auth {
+      max-width: 400px;
+      margin: 60px auto;
+      padding: 20px;
+    }
+
+    .auth h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .auth button {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .switch {
+      text-align: center;
+      margin-top: 15px;
+      color: #6366f1;
+      cursor: pointer;
+    }
+
+    .history-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .success {
+      color: #16a34a;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .error {
+      color: #dc2626;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header id="header" class="hidden">
+  <h2>⭐ PointWeb</h2>
+  <button class="logout" onclick="logout()">Đăng xuất</button>
+</header>
+
+
+<!-- ĐĂNG NHẬP -->
+<div id="loginPage" class="auth">
+
+  <div class="card">
+    <h1>Đăng nhập</h1>
+
+    <input
+      id="loginUsername"
+      type="text"
+      placeholder="Tên tài khoản"
+    >
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Mật khẩu"
+    >
+
+    <button onclick="login()">Đăng nhập</button>
+
+    <p id="loginMessage"></p>
+
+    <div class="switch" onclick="showRegister()">
+      Chưa có tài khoản? Đăng ký
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ĐĂNG KÝ -->
+<div id="registerPage" class="auth hidden">
+
+  <div class="card">
+
+    <h1>Đăng ký</h1>
+
+    <input
+      id="registerUsername"
+      type="text"
+      placeholder="Tên tài khoản"
+    >
+
+    <input
+      id="registerPassword"
+      type="password"
+      placeholder="Mật khẩu"
+    >
+
+    <button onclick="register()">Tạo tài khoản</button>
+
+    <p id="registerMessage"></p>
+
+    <div class="switch" onclick="showLogin()">
+      Đã có tài khoản? Đăng nhập
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- TRANG CHÍNH -->
+<div id="homePage" class="container hidden">
+
+  <!-- ĐIỂM -->
+  <div class="card points">
+
+    <p>Xin chào, <b id="username"></b></p>
+
+    <h1 id="points">0</h1>
+
+    <p>⭐ Điểm hiện tại</p>
+
+  </div>
+
+
+  <!-- NHIỆM VỤ -->
+  <div class="card">
+
+    <h2>🎯 Nhiệm vụ</h2>
+
+    <br>
+
+    <div class="task">
+
+      <div class="task-info">
+        <h3>Truy cập website</h3>
+        <p>Nhận 10 điểm</p>
+      </div>
+
+      <button onclick="doTask(1, 10, 'https://example.com')">
+        +10
+      </button>
+
+    </div>
+
+    <hr style="margin:15px 0;border:none;border-top:1px solid #eee;">
+
+    <div class="task">
+
+      <div class="task-info">
+        <h3>Xem trang giới thiệu</h3>
+        <p>Nhận 20 điểm</p>
+      </div>
+
+      <button onclick="doTask(2, 20, 'https://example.com')">
+        +20
+      </button>
+
+    </div>
+
+    <hr style="margin:15px 0;border:none;border-top:1px solid #eee;">
+
+    <div class="task">
+
+      <div class="task-info">
+        <h3>Truy cập link đặc biệt</h3>
+        <p>Nhận 50 điểm</p>
+      </div>
+
+      <button onclick="doTask(3, 50, 'https://example.com')">
+        +50
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- LỊCH SỬ -->
+  <div class="card">
+
+    <h2>📜 Lịch sử</h2>
+
+    <br>
+
+    <div id="history">
+      Chưa có hoạt động.
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  // =========================
+  // DATABASE DEMO
+  // =========================
+
+  let users = JSON.parse(
+    localStorage.getItem("users") || "{}"
+  );
+
+  let currentUser =
+    localStorage.getItem("currentUser");
+
+
+  // =========================
+  // HIỂN THỊ TRANG
+  // =========================
+
+  function showLogin() {
+
+    document
+      .getElementById("loginPage")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("registerPage")
+      .classList.add("hidden");
+
+  }
+
+
+  function showRegister() {
+
+    document
+      .getElementById("loginPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("registerPage")
+      .classList.remove("hidden");
+
+  }
+
+
+  // =========================
+  // ĐĂNG KÝ
+  // =========================
+
+  function register() {
+
+    const username =
+      document
+        .getElementById("registerUsername")
+        .value
+        .trim();
+
+    const password =
+      document
+        .getElementById("registerPassword")
+        .value;
+
+    const message =
+      document.getElementById("registerMessage");
+
+
+    if (!username || !password) {
+
+      message.className = "error";
+      message.textContent =
+        "Vui lòng nhập đầy đủ thông tin.";
+
+      return;
+    }
+
+
+    if (users[username]) {
+
+      message.className = "error";
+      message.textContent =
+        "Tên tài khoản đã tồn tại.";
+
+      return;
+    }
+
+
+    users[username] = {
+
+      password: password,
+
+      points: 0,
+
+      completedTasks: [],
+
+      history: []
+
+    };
+
+
+    localStorage.setItem(
+      "users",
+      JSON.stringify(users)
+    );
+
+
+    message.className = "success";
+
+    message.textContent =
+      "Đăng ký thành công!";
+
+
+    setTimeout(() => {
+
+      showLogin();
+
+    }, 800);
+
+  }
+
+
+  // =========================
+  // ĐĂNG NHẬP
+  // =========================
+
+  function login() {
+
+    const username =
+      document
+        .getElementById("loginUsername")
+        .value
+        .trim();
+
+    const password =
+      document
+        .getElementById("loginPassword")
+        .value;
+
+    const message =
+      document.getElementById("loginMessage");
+
+
+    if (
+      !users[username] ||
+      users[username].password !== password
+    ) {
+
+      message.className = "error";
+
+      message.textContent =
+        "Sai tài khoản hoặc mật khẩu.";
+
+      return;
+    }
+
+
+    currentUser = username;
+
+    localStorage.setItem(
+      "currentUser",
+      username
+    );
+
+
+    openHome();
+
+  }
+
+
+  // =========================
+  // TRANG CHÍNH
+  // =========================
+
+  function openHome() {
+
+    document
+      .getElementById("loginPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("registerPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("homePage")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("header")
+      .classList.remove("hidden");
+
+
+    updateUI();
+
+  }
+
+
+  // =========================
+  // CẬP NHẬT GIAO DIỆN
+  // =========================
+
+  function updateUI() {
+
+    if (!currentUser) return;
+
+    const user =
+      users[currentUser];
+
+
+    document
+      .getElementById("username")
+      .textContent = currentUser;
+
+
+    document
+      .getElementById("points")
+      .textContent = user.points;
+
+
+    renderHistory();
+
+  }
+
+
+  // =========================
+  // LÀM NHIỆM VỤ
+  // =========================
+
+  function doTask(
+    taskId,
+    reward,
+    url
+  ) {
+
+    const user =
+      users[currentUser];
+
+
+    // Kiểm tra đã nhận điểm chưa
+
+    if (
+      user.completedTasks.includes(taskId)
+    ) {
+
+      alert(
+        "Bạn đã nhận điểm từ nhiệm vụ này rồi."
+      );
+
+      return;
+    }
+
+
+    // Chuyển hướng link
+
+    window.open(
+      url,
+      "_blank"
+    );
+
+
+    // Demo: cộng điểm ngay
+
+    user.points += reward;
+
+    user.completedTasks.push(taskId);
+
+
+    user.history.unshift({
+
+      task:
+        "Hoàn thành nhiệm vụ #" + taskId,
+
+      reward: reward,
+
+      time:
+        new Date().toLocaleString("vi-VN")
+
+    });
+
+
+    saveUsers();
+
+    updateUI();
+
+  }
+
+
+  // =========================
+  // LỊCH SỬ
+  // =========================
+
+  function renderHistory() {
+
+    const box =
+      document.getElementById("history");
+
+    const history =
+      users[currentUser].history;
+
+
+    if (!history.length) {
+
+      box.textContent =
+        "Chưa có hoạt động.";
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      history.map(item => `
+
+        <div class="history-item">
+
+          <div>
+            ${item.task}
+            <br>
+            <small>${item.time}</small>
+          </div>
+
+          <b>+${item.reward}</b>
+
+        </div>
+
+      `).join("");
+
+  }
+
+
+  // =========================
+  // LƯU DATABASE
+  // =========================
+
+  function saveUsers() {
+
+    localStorage.setItem(
+      "users",
+      JSON.stringify(users)
+    );
+
+  }
+
+
+  // =========================
+  // ĐĂNG XUẤT
+  // =========================
+
+  function logout() {
+
+    currentUser = null;
+
+    localStorage.removeItem(
+      "currentUser"
+    );
+
+
+    document
+      .getElementById("homePage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("header")
+      .classList.add("hidden");
+
+
+    showLogin();
+
+  }
+
+
+  // =========================
+  // TỰ ĐĂNG NHẬP NẾU ĐÃ LOGIN
+  // =========================
+
+  if (
+    currentUser &&
+    users[currentUser]
+  ) {
+
+    openHome();
+
+  } else {
+
+    showLogin();
+
+  }
+
+</script>
+
+</body>
+</html>
