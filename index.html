@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>⭐ PointWeb</title>
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    ⭐ PointWeb
+  </div>
+
+  <button
+    id="logoutBtn"
+    class="danger hidden">
+    Đăng xuất
+  </button>
+
+</header>
+
+
+<!-- AUTH -->
+
+<section id="authPage">
+
+  <div class="auth-card">
+
+    <h1>⭐ PointWeb</h1>
+
+    <h2 id="authTitle">
+      Đăng nhập
+    </h2>
+
+    <input
+      id="username"
+      placeholder="Tên tài khoản"
+    >
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Mật khẩu"
+    >
+
+    <button
+      id="authBtn">
+      Đăng nhập
+    </button>
+
+    <p
+      id="authError"
+      class="error">
+    </p>
+
+    <button
+      id="switchAuth"
+      class="link-button">
+      Chưa có tài khoản? Đăng ký
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- USER -->
+
+<section
+  id="userPage"
+  class="page hidden">
+
+  <div class="balance-card">
+
+    <p>
+      Xin chào,
+      <b id="userName"></b>
+    </p>
+
+    <div
+      id="points"
+      class="points">
+      0
+    </div>
+
+    <span>
+      ⭐ Điểm
+    </span>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>🎯 Nhiệm vụ</h2>
+
+    <div id="tasks"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>📜 Lịch sử</h2>
+
+    <div id="history"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section
+  id="adminPage"
+  class="page hidden">
+
+  <div class="card">
+
+    <h2>👑 Admin</h2>
+
+    <div id="adminStats"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>🎯 Tạo nhiệm vụ</h2>
+
+    <input
+      id="taskTitle"
+      placeholder="Tên nhiệm vụ"
+    >
+
+    <input
+      id="taskDescription"
+      placeholder="Mô tả"
+    >
+
+    <input
+      id="taskURL"
+      placeholder="Link nhiệm vụ"
+    >
+
+    <input
+      id="taskReward"
+      type="number"
+      placeholder="Số điểm"
+    >
+
+    <button id="createTask">
+      + Tạo nhiệm vụ
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>👥 User</h2>
+
+    <div id="users"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>📋 Nhiệm vụ</h2>
+
+    <div id="adminTasks"></div>
+
+  </div>
+
+</section>
+
+
+<script
+  type="module"
+  src="./app.js">
+</script>
+
+</body>
+</html>
